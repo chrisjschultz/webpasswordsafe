@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-    Copyright 2010-2013 Josh Drummond
+    Copyright 2010-2015 Josh Drummond
     
     This file is part of WebPasswordSafe.
     
@@ -29,13 +29,13 @@
  <description>Web-based, multi-user, secure password safe with delegated access controls</description>
  <url>http://www.webpasswordsafe.net</url>
  <issueManagement>
-  <system>Google Code Issue Tracking</system>
-  <url>http://code.google.com/p/webpasswordsafe/issues/list</url>
+  <system>GitHub</system>
+  <url>https://github.com/joshdrummond/webpasswordsafe/issues</url>
  </issueManagement>
  <scm>
-  <connection>scm:svn:http://webpasswordsafe.googlecode.com/svn/trunk</connection>
-  <developerConnection>scm:svn:https://webpasswordsafe.googlecode.com/svn/trunk</developerConnection>
-  <url>http://code.google.com/p/webpasswordsafe/source/checkout</url>
+  <url>https://github.com/joshdrummond/webpasswordsafe</url>
+  <connection>scm:git:git://github.com/joshdrummond/webpasswordsafe.git</connection>
+  <developerConnection>scm:git:git@github.com:joshdrummond/webpasswordsafe.git</developerConnection>
  </scm>
 
  <properties>
@@ -205,6 +205,11 @@
     <artifactId>groovy-all</artifactId>
     <version>1.8.6</version>
   </dependency>
+  <dependency>
+     <groupId>javax.servlet</groupId>
+     <artifactId>jstl</artifactId>
+     <version>1.2</version>
+  </dependency>
 
   <!--  GWT dependencies (from central repo) -->
   <dependency>
@@ -238,6 +243,18 @@
    <version>${gxt.version}</version>
    <scope>provided</scope>
   </dependency>
+  <!-- Duo Authentication dependencies -->
+  <dependency>
+    <groupId>org.json</groupId>
+    <artifactId>org.json</artifactId>
+    <version>chargebee-1.0</version>
+  </dependency>
+  <dependency>
+    <groupId>com.squareup.okhttp</groupId>
+    <artifactId>okhttp</artifactId>
+    <version>2.3.0</version>
+    <scope>compile</scope>
+  </dependency>
 
   <!--  optional dependencies -->
   <!--  OWASP ESAPI Encryption -->
@@ -261,7 +278,31 @@
     <version>8.1.0</version>
   </dependency>
   -->
- 
+  <!-- CAS SSO Authentication -->
+  <!--
+  <dependency>
+    <groupId>org.jasig.cas.client</groupId>
+    <artifactId>cas-client-core</artifactId>
+    <version>3.3.3</version>
+    <exclusions>
+      <exclusion>
+        <groupId>javax.servlet</groupId>
+        <artifactId>servlet-api</artifactId>
+      </exclusion>
+    </exclusions>
+  </dependency>
+  <dependency>
+    <groupId>xml-apis</groupId>
+    <artifactId>xml-apis</artifactId>
+    <version>1.4.01</version>
+  </dependency>
+  <dependency>
+    <groupId>org.opensaml</groupId>
+    <artifactId>opensaml1</artifactId>
+    <version>1.1</version>
+  </dependency>
+  -->
+  
   <!-- test -->
   <dependency>
    <groupId>junit</groupId>
