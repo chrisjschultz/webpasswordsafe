@@ -27,12 +27,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import net.webpasswordsafe.client.remote.LoginService;
 import net.webpasswordsafe.client.remote.PasswordService;
-import net.webpasswordsafe.common.model.AccessLevel;
-import net.webpasswordsafe.common.model.Password;
-import net.webpasswordsafe.common.model.PasswordData;
-import net.webpasswordsafe.common.model.Permission;
-import net.webpasswordsafe.common.model.Tag;
-import net.webpasswordsafe.common.model.User;
+import net.webpasswordsafe.common.model.*;
 import net.webpasswordsafe.common.util.Constants;
 import net.webpasswordsafe.common.util.Constants.AuthenticationStatus;
 import net.webpasswordsafe.common.util.Constants.Match;
@@ -232,8 +227,27 @@ public class PasswordController
                 password.setMaxHistory(-1);
                 String active = Utils.safeString(passwordMap.get("active")).toLowerCase();
                 password.setActive(active.equals("") || active.equals("true") || active.equals("yes") || active.equals("y"));
-                password.addPermission(new Permission(loggedInUser, AccessLevel.GRANT));
                 password.addTagsAsString(Utils.safeString(passwordMap.get("tags")));
+                password.addPermission(new Permission(loggedInUser, AccessLevel.GRANT));
+
+                String requestedSecurityTemplate = Utils.safeString(passwordMap.get("template"));
+                try {
+                    if (requestedSecurityTemplate != "") {
+                        List<Template> templates = passwordService.getTemplates(true);
+                        for (Template template : templates) {
+                            if (template.getName().equalsIgnoreCase(requestedSecurityTemplate)) {
+                                for (TemplateDetail details : template.getTemplateDetails()) {
+                                    password.addPermission(new Permission(details.getSubject(), details.getAccessLevelObj()));
+                                }
+                            }
+                        }
+                    }
+                } catch (Exception ex) {
+                    LOG.error("Failed to load template", ex);
+                    throw ex;
+                }
+
+
                 if (passwordService.isPasswordTaken(password.getName(), password.getUsername(), password.getId()))
                 {
                     message = "Password title and username already exists";
