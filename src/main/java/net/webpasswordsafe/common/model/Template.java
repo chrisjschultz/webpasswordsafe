@@ -57,7 +57,7 @@ public class Template extends LightEntity implements Serializable
     @Type(type="yes_no")
     private boolean shared;
     
-    @OneToMany(fetch = FetchType.EAGER, cascade={CascadeType.ALL}, orphanRemoval=true, mappedBy="parent")
+    @OneToMany(cascade={CascadeType.ALL}, orphanRemoval=true, mappedBy="parent")
     private Set<TemplateDetail> templateDetails;
 
     public Template()

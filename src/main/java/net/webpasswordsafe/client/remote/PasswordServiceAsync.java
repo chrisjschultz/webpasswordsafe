@@ -52,6 +52,7 @@ public interface PasswordServiceAsync {
     public void updateTemplate(Template template, AsyncCallback<Void> callback);
     public void deleteTemplate(Template template, AsyncCallback<Void> callback);
     public void getTemplates(boolean includeShared, AsyncCallback<List<Template>> callback);
+    public void getTemplatesWithDetails(boolean includeShared, AsyncCallback<List<Template>> callback);
     public void getTemplateWithDetails(long templateId, AsyncCallback<Template> callback);
     public void isTemplateTaken(String templateName, long ignoreTemplateId, AsyncCallback<Boolean> callback);
 

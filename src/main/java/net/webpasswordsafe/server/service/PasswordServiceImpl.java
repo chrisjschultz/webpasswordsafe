@@ -52,6 +52,7 @@ import net.webpasswordsafe.server.plugin.encryption.Encryptor;
 import net.webpasswordsafe.server.plugin.generator.PasswordGenerator;
 import net.webpasswordsafe.server.service.helper.WPSXsrfProtectedServiceServlet;
 import org.apache.log4j.Logger;
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -514,6 +515,17 @@ public class PasswordServiceImpl extends WPSXsrfProtectedServiceServlet implemen
     {
         User loggedInUser = getLoggedInUser();
         return templateDAO.findTemplatesByUser(loggedInUser, includeShared);
+    }
+
+    @Override
+    @Transactional(propagation=Propagation.REQUIRED, readOnly=true)
+    public List<Template> getTemplatesWithDetails(boolean includeShared)
+    {
+        List<Template> templates = getTemplates(includeShared);
+        for (Template template : templates) {
+            Hibernate.initialize(template.getTemplateDetails());
+        }
+        return templates;
     }
 
     @Override

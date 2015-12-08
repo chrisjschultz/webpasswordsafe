@@ -233,7 +233,7 @@ public class PasswordController
                 String requestedSecurityTemplate = Utils.safeString(passwordMap.get("template"));
                 try {
                     if (requestedSecurityTemplate != "") {
-                        List<Template> templates = passwordService.getTemplates(true);
+                        List<Template> templates = passwordService.getTemplatesWithDetails(true);
                         for (Template template : templates) {
                             if (template.getName().equalsIgnoreCase(requestedSecurityTemplate)) {
                                 for (TemplateDetail details : template.getTemplateDetails()) {

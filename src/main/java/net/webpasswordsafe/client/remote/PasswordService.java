@@ -54,6 +54,7 @@ public interface PasswordService extends XsrfProtectedService {
     public void updateTemplate(Template template);
     public void deleteTemplate(Template template);
     public List<Template> getTemplates(boolean includeShared);
+    public List<Template> getTemplatesWithDetails(boolean includeShared);
     public Template getTemplateWithDetails(long templateId);
     public boolean isTemplateTaken(String templateName, long ignoreTemplateId);
     

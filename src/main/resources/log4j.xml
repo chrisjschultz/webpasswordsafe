@@ -79,7 +79,7 @@
   </category>
 
   <root>
-    <priority value="info" />
+    <priority value="debug" />
     <appender-ref ref="dailyFile" />
   </root>
 
